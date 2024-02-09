@@ -2,6 +2,51 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<MBCard AutoStyled="true">
+	<Primary>
+		<p>Choose a CSV file to display its contents.</p>
+		<MBButton
+			ButtonStyle="MBButtonStyle.ContainedRaised"
+			Label="Choose..."/>
+	</Primary>
+</MBCard>
 
-Welcome to your new app.
+<MBCard AutoStyled="true">
+	<Primary>
+		<MBDataTable
+			class="table"
+			Context="item"
+			Items="@CsvLines">
+			<TableHeader>
+				@foreach (var header in Headers) {
+					<th class="header-bold" role="columnheader" scope="col">
+						@header
+					</th>
+				}
+			</TableHeader>
+			<TableRow>
+				@foreach (var cell in item.Cells) {
+					<td>@cell</td>
+				}
+			</TableRow>
+			<Paginator>
+				<MBPaginator
+					@bind-ItemsPerPage="@LinesPerPage"
+					@bind-PageNumber="@PageNumber"
+					ItemsPerPageSelection="@ItemsPerPageSelection"
+					ItemCount="@TotalLines" />
+			</Paginator>
+		</MBDataTable>
+	</Primary>
+</MBCard>
+
+@code {
+	CsvLine[] CsvLines = [new CsvLine(["bla", "bar"])];
+	string[] Headers = ["Foo", "Bar"];
+	int LinesPerPage = 10;
+	int PageNumber;
+	int[] ItemsPerPageSelection = [5, 10, 20];
+	int TotalLines = 100;
+
+	record CsvLine(string[] Cells);
+}
