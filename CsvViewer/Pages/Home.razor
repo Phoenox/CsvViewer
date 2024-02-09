@@ -1,4 +1,7 @@
 ﻿@page "/"
+@using CsvViewer.Contracts
+@inject IFileSystemAccessService FileSystemAccessService;
+@inject IInteractors Interactors
 
 <PageTitle>Home</PageTitle>
 
@@ -7,46 +10,57 @@
 		<p>Choose a CSV file to display its contents.</p>
 		<MBButton
 			ButtonStyle="MBButtonStyle.ContainedRaised"
-			Label="Choose..."/>
+			Label="Choose..."
+			@onclick="LoadCsvFile"/>
 	</Primary>
 </MBCard>
 
-<MBCard AutoStyled="true">
-	<Primary>
-		<MBDataTable
-			class="table"
-			Context="item"
-			Items="@CsvLines">
-			<TableHeader>
-				@foreach (var header in Headers) {
-					<th class="header-bold" role="columnheader" scope="col">
-						@header
-					</th>
-				}
-			</TableHeader>
-			<TableRow>
-				@foreach (var cell in item.Cells) {
-					<td>@cell</td>
-				}
-			</TableRow>
-			<Paginator>
-				<MBPaginator
-					@bind-ItemsPerPage="@LinesPerPage"
-					@bind-PageNumber="@PageNumber"
-					ItemsPerPageSelection="@ItemsPerPageSelection"
-					ItemCount="@TotalLines" />
-			</Paginator>
-		</MBDataTable>
-	</Primary>
-</MBCard>
+@if (csvPage is not null)
+{
+	<MBCard AutoStyled="true">
+		<Primary>
+			<MBDataTable
+				class="table"
+				Context="item"
+				Items="@csvPage.Lines">
+				<TableHeader>
+					@foreach (var header in csvPage.Headers)
+					{
+						<th class="header-bold" role="columnheader" scope="col">
+							@header
+						</th>
+					}
+				</TableHeader>
+				<TableRow>
+					@foreach (var cell in item.Cells)
+					{
+						<td style="text-align: center">@cell</td>
+					}
+				</TableRow>
+				<Paginator>
+					<MBPaginator
+						@bind-ItemsPerPage="@pageLength"
+						@bind-PageNumber="@pageNumber"
+						ItemsPerPageSelection="@itemsPerPageSelection"
+						ItemCount="@csvPage.TotalLines"/>
+				</Paginator>
+			</MBDataTable>
+		</Primary>
+	</MBCard>
+}
 
 @code {
-	CsvLine[] CsvLines = [new CsvLine(["bla", "bar"])];
-	string[] Headers = ["Foo", "Bar"];
-	int LinesPerPage = 10;
-	int PageNumber;
-	int[] ItemsPerPageSelection = [5, 10, 20];
-	int TotalLines = 100;
+	readonly int[] itemsPerPageSelection = [5, 10, 20];
+	int pageLength = 10;
 
-	record CsvLine(string[] Cells);
+	CsvPage? csvPage;
+	int pageNumber;
+
+	async Task LoadCsvFile() {
+		var options = new OpenFilePickerOptionsStartInWellKnownDirectory {
+				Multiple = false, StartIn = WellKnownDirectory.Downloads };
+		var fileHandles = await FileSystemAccessService.ShowOpenFilePickerAsync(options);
+		var fileHandle = fileHandles.Single();
+		csvPage = await Interactors.LoadFile(fileHandle, pageLength);
+	}
 }
