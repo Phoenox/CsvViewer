@@ -12,7 +12,7 @@ public static class FileProvider
 	{
 		var file = await fileHandle.GetFileAsync();
 		var content = await file.TextAsync();
-		var lines = content.Split(Environment.NewLine);
+		var lines = content.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
 
 		var headers = lines[0].Split(CsvSeparator).ToArray();
 		var csvLines = lines

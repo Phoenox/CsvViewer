@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
 using CsvViewer;
+using Fluxor;
 using KristofferStrube.Blazor.FileSystemAccess;
 using Material.Blazor;
 
@@ -12,6 +14,6 @@ builder.Services.AddScoped(_ => new HttpClient {
 		BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 builder.Services.AddMBServices();
 builder.Services.AddFileSystemAccessService();
-builder.Services.AddScoped<IInteractors, Interactors>();
+builder.Services.AddFluxor(o => o.ScanAssemblies(typeof(Program).Assembly).UseReduxDevTools());
 
 await builder.Build().RunAsync();

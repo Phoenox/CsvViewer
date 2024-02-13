@@ -1,7 +1,10 @@
 ﻿@page "/"
 @using CsvViewer.Contracts
+@using CsvViewer.Features.CsvPagination
+@inherits FluxorComponent
+@inject IDispatcher Dispatcher
+@inject IState<State> State
 @inject IFileSystemAccessService FileSystemAccessService;
-@inject IInteractors Interactors
 
 <PageTitle>Home</PageTitle>
 
@@ -15,16 +18,16 @@
 	</Primary>
 </MBCard>
 
-@if (csvPage is not null)
+@if (CsvPage is not null)
 {
 	<MBCard AutoStyled="true">
 		<Primary>
 			<MBDataTable
 				class="table"
 				Context="item"
-				Items="@csvPage.Lines">
+				Items="@CsvPage.Lines">
 				<TableHeader>
-					@foreach (var header in csvPage.Headers)
+					@foreach (var header in CsvPage.Headers)
 					{
 						<th class="header-bold" role="columnheader" scope="col">
 							@header
@@ -39,10 +42,10 @@
 				</TableRow>
 				<Paginator>
 					<MBPaginator
-						@bind-ItemsPerPage="@pageLength"
-						@bind-PageNumber="@pageNumber"
+						@bind-ItemsPerPage="@PageLength"
+						@bind-PageNumber="@PageIndex"
 						ItemsPerPageSelection="@itemsPerPageSelection"
-						ItemCount="@csvPage.TotalLines"/>
+						ItemCount="@CsvPage.TotalLines"/>
 				</Paginator>
 			</MBDataTable>
 		</Primary>
@@ -51,16 +54,26 @@
 
 @code {
 	readonly int[] itemsPerPageSelection = [5, 10, 20];
-	int pageLength = 10;
+	
+	CsvPage? CsvPage => State.Value.CsvPage;
+	
+	int PageLength
+	{
+		get => State.Value.PageLength;
+		set => Dispatcher.Dispatch(new SetPageLengthAction(value));
+	}
 
-	CsvPage? csvPage;
-	int pageNumber;
+	int PageIndex
+	{
+		get => State.Value.PageIndex;
+		set => Dispatcher.Dispatch(new SetPageIndexAction(value));
+	}
 
 	async Task LoadCsvFile() {
 		var options = new OpenFilePickerOptionsStartInWellKnownDirectory {
 				Multiple = false, StartIn = WellKnownDirectory.Downloads };
 		var fileHandles = await FileSystemAccessService.ShowOpenFilePickerAsync(options);
 		var fileHandle = fileHandles.Single();
-		csvPage = await Interactors.LoadFile(fileHandle, pageLength);
+		Dispatcher.Dispatch(new LoadFileAction(fileHandle));
 	}
 }
