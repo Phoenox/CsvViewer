@@ -1,7 +1,7 @@
-namespace CsvViewer.Features.CsvPagination;
+namespace CsvViewerWithFluxor.Features.CsvPagination;
 
 using Fluxor;
-using Providers;
+using CsvViewer.Providers;
 
 public static class Effects
 {

@@ -1,6 +1,6 @@
-namespace CsvViewer.Features.CsvPagination;
+namespace CsvViewerWithFluxor.Features.CsvPagination;
 
-using Contracts;
+using CsvViewer.Contracts;
 using Fluxor;
 
 public record State(CsvFile? CsvFile, CsvPage? CsvPage, int PageLength, int PageIndex);

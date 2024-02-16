@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
-using CsvViewer;
+using CsvViewerWithFluxor;
 using Fluxor;
 using KristofferStrube.Blazor.FileSystemAccess;
 using Material.Blazor;

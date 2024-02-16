@@ -1,6 +1,6 @@
-namespace CsvViewer.Features.CsvPagination;
+namespace CsvViewerWithFluxor.Features.CsvPagination;
 
-using Contracts;
+using CsvViewer.Contracts;
 using KristofferStrube.Blazor.FileSystem;
 
 public record LoadFileAction(FileSystemFileHandle FileHandle);

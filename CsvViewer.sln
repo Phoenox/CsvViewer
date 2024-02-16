@@ -1,12 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvViewer", "CsvViewer\CsvViewer.csproj", "{0B58EB32-6760-4C0F-939A-FF60D5CBC124}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvViewerWithFluxor", "CsvViewerWithFluxor\CsvViewerWithFluxor.csproj", "{0B58EB32-6760-4C0F-939A-FF60D5CBC124}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Contracts\Contracts.csproj", "{5CA14E60-4554-44F8-BA85-FC903662AB61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Providers", "Providers\Providers.csproj", "{A8AF6A25-126D-4BBE-BF5A-22D928B8847B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{967A6FD8-F3E3-49CC-A464-80FA3073F38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvViewerWithInteractors", "CsvViewerWithInteractors\CsvViewerWithInteractors.csproj", "{E5B6717D-3050-4957-9C2C-2906B6A3E234}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{94CBA069-E210-48E1-BE38-DA72F5B66E80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +34,13 @@ Global
 		{967A6FD8-F3E3-49CC-A464-80FA3073F38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{967A6FD8-F3E3-49CC-A464-80FA3073F38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{967A6FD8-F3E3-49CC-A464-80FA3073F38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5B6717D-3050-4957-9C2C-2906B6A3E234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B6717D-3050-4957-9C2C-2906B6A3E234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B6717D-3050-4957-9C2C-2906B6A3E234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5B6717D-3050-4957-9C2C-2906B6A3E234}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

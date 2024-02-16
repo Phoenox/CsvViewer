@@ -1,10 +1,8 @@
 ﻿@page "/"
 @using CsvViewer.Contracts
-@using CsvViewer.Features.CsvPagination
-@inherits FluxorComponent
-@inject IDispatcher Dispatcher
-@inject IState<State> State
+@using KristofferStrube.Blazor.FileSystem
 @inject IFileSystemAccessService FileSystemAccessService;
+@inject Interactors Interactors;
 
 <PageTitle>Home</PageTitle>
 
@@ -18,16 +16,16 @@
 	</Primary>
 </MBCard>
 
-@if (CsvPage is not null)
+@if (csvPage is not null)
 {
 	<MBCard AutoStyled="true">
 		<Primary>
 			<MBDataTable
 				class="table"
 				Context="item"
-				Items="@CsvPage.Lines">
+				Items="@csvPage.Lines">
 				<TableHeader>
-					@foreach (var header in CsvPage.Headers)
+					@foreach (var header in csvPage.Headers)
 					{
 						<th class="header-bold" role="columnheader" scope="col">
 							@header
@@ -45,7 +43,7 @@
 						@bind-ItemsPerPage="@PageLength"
 						@bind-PageNumber="@PageIndex"
 						ItemsPerPageSelection="@itemsPerPageSelection"
-						ItemCount="@CsvPage.TotalLines"/>
+						ItemCount="@csvPage.TotalLines"/>
 				</Paginator>
 			</MBDataTable>
 		</Primary>
@@ -54,26 +52,42 @@
 
 @code {
 	readonly int[] itemsPerPageSelection = [5, 10, 20];
-	
-	CsvPage? CsvPage => State.Value.CsvPage;
-	
+
+	CsvPage? csvPage;
+
+	int pageLength = 10;
 	int PageLength
 	{
-		get => State.Value.PageLength;
-		set => Dispatcher.Dispatch(new SetPageLengthAction(value));
+		get => pageLength;
+		set
+		{
+			pageLength = value;
+			csvPage = Interactors.LoadCsvPage(pageIndex, pageLength);
+		}
 	}
 
+	int pageIndex;
 	int PageIndex
 	{
-		get => State.Value.PageIndex;
-		set => Dispatcher.Dispatch(new SetPageIndexAction(value));
+		get => pageIndex;
+		set
+		{
+			pageIndex = value;
+			csvPage = Interactors.LoadCsvPage(pageIndex, pageLength);
+		}
 	}
 
-	async Task LoadCsvFile() {
+	async Task LoadCsvFile()
+	{
+		var fileHandle = await ChooseFile();
+		csvPage = await Interactors.LoadCsvFile(fileHandle, pageLength);
+	}
+
+	private async Task<FileSystemFileHandle> ChooseFile()
+	{
 		var options = new OpenFilePickerOptionsStartInWellKnownDirectory {
 				Multiple = false, StartIn = WellKnownDirectory.Downloads };
 		var fileHandles = await FileSystemAccessService.ShowOpenFilePickerAsync(options);
-		var fileHandle = fileHandles.Single();
-		Dispatcher.Dispatch(new LoadFileAction(fileHandle));
+		return fileHandles.Single();
 	}
 }
