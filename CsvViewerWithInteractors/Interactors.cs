@@ -11,7 +11,8 @@ public class Interactors
 
 	public async Task<CsvPage> LoadCsvFile(FileSystemFileHandle fileHandle, int pageLength)
 	{
-		file = await FileProvider.ReadFile(fileHandle);
+		var fileContent = await FileProvider.ReadText(fileHandle);
+		file = CsvParser.ToCsvFile(fileContent);
 		return Pagination.GetPage(file, 0, pageLength);
 	}
 

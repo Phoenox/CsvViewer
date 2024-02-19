@@ -16,4 +16,18 @@ public static class Dummies
 					Lines: lines);
 		}
 	}
+
+	public static string CsvFileContent
+	{
+		get
+		{
+			return
+					"""
+					foo,bar,bla
+					1,2,3
+
+					4,5,6
+					""";
+		}
+	}
 }
