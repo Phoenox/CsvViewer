@@ -3,7 +3,7 @@ namespace Core.Tests;
 public class PaginationsTests
 {
 	[Fact]
-	public void IntegationTest()
+	public void IntegrationTest()
 	{
 		var file = Dummies.CsvFile;
 		var page = Pagination.GetPage(file, 17, 5);
