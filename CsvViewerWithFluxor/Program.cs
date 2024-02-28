@@ -18,4 +18,5 @@ builder.Services.AddFluxor(o => o
 		.ScanAssemblies(typeof(CsvViewer.FluxorFeatures.CsvPagination.Feature).Assembly)
 		.UseReduxDevTools());
 
-await builder.Build().RunAsync();
+var host = builder.Build();
+await host.RunAsync();

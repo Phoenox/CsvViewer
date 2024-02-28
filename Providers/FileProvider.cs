@@ -9,4 +9,7 @@ public static class FileProvider
 		var file = await fileHandle.GetFileAsync();
 		return await file.TextAsync();
 	}
+
+	public static string ReadText(string filePath)
+		=> File.ReadAllText(filePath);
 }

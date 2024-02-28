@@ -9,9 +9,9 @@ public static class CsvParser
 	public static CsvFile ToCsvFile(string text)
 	{
 		var lines = text.Split(
-				Environment.NewLine,
-				StringSplitOptions.RemoveEmptyEntries);
-		var headers = lines[0].Split(CsvSeparator).ToArray();
+				'\n',
+				StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+		var headers = lines[0].Split(CsvSeparator, StringSplitOptions.TrimEntries).ToArray();
 		var csvLines = lines
 				.Skip(1)
 				.Select(ToCsvLine)
@@ -20,7 +20,7 @@ public static class CsvParser
 
 		static CsvLine ToCsvLine(string line)
 		{
-			var cells = line.Split(CsvSeparator);
+			var cells = line.Split(CsvSeparator, StringSplitOptions.TrimEntries);
 			return new CsvLine(cells);
 		}
 	}

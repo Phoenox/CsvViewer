@@ -13,4 +13,13 @@ public static class Effects
 		var csvFile = CsvParser.ToCsvFile(fileContent);
 		dispatcher.Dispatch(new SetFileAction(csvFile));
 	}
+
+	[EffectMethod]
+	public static Task LoadCsvFileForConsole(ConsoleLoadFileAction action, IDispatcher dispatcher)
+	{
+		var fileContent = FileProvider.ReadText(action.FilePath);
+		var csvFile = CsvParser.ToCsvFile(fileContent);
+		dispatcher.Dispatch(new SetFileAction(csvFile));
+		return Task.CompletedTask;
+	}
 }
