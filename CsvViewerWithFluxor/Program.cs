@@ -14,6 +14,8 @@ builder.Services.AddScoped(_ => new HttpClient {
 		BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 builder.Services.AddMBServices();
 builder.Services.AddFileSystemAccessService();
-builder.Services.AddFluxor(o => o.ScanAssemblies(typeof(Program).Assembly).UseReduxDevTools());
+builder.Services.AddFluxor(o => o
+		.ScanAssemblies(typeof(CsvViewer.FluxorFeatures.CsvPagination.Feature).Assembly)
+		.UseReduxDevTools());
 
 await builder.Build().RunAsync();

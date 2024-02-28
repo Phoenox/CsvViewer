@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvViewerWithInteractors", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{94CBA069-E210-48E1-BE38-DA72F5B66E80}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluxorFeatures", "FluxorFeatures\FluxorFeatures.csproj", "{E03CBFC3-B1A1-4A58-B6C6-762A17F11F05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94CBA069-E210-48E1-BE38-DA72F5B66E80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E03CBFC3-B1A1-4A58-B6C6-762A17F11F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E03CBFC3-B1A1-4A58-B6C6-762A17F11F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E03CBFC3-B1A1-4A58-B6C6-762A17F11F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E03CBFC3-B1A1-4A58-B6C6-762A17F11F05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

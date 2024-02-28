@@ -1,4 +1,4 @@
-namespace CsvViewerWithFluxor.Features.CsvPagination;
+namespace CsvViewer.FluxorFeatures.CsvPagination;
 
 using Core;
 using Fluxor;
